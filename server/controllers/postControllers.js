@@ -59,7 +59,11 @@ const createPost = async(req, res, next) =>{
 
 const getPost = async(req, res, next) =>{
     try {
-        res.json("Get Post")
+        const {id} = req.params;
+        // const post = await postModel.findById(id).populate("Creator").populate({path:"comments", options:{sort: {createdAt: -1}}})
+                const post = await postModel.findById(id)
+                    res.json(post)
+
     } catch (error) {
         return next(new HttpError(error))
     }
@@ -74,7 +78,9 @@ const getPost = async(req, res, next) =>{
 
 const getPosts = async(req, res, next) =>{
     try {
-        res.json("Get All Posts")
+        const posts = await postModel.find().sort({createdAt: -1})
+        res.json(posts)
+
     } catch (error) {
         return next(new HttpError(error))
     }
@@ -89,7 +95,16 @@ const getPosts = async(req, res, next) =>{
 
 const updatePost = async(req, res, next) =>{
     try {
-        res.json("Update Post")
+        const postId = req.params.id;
+        const {body} = req.body;
+        //get post from db
+        const post = await postModel.findById(postId);
+        // check if creator is the same as logged in user
+        if(post?.creator != req.user.id){
+            return next(new HttpError("You are not authorized to update this post"), 403)
+        }
+        const updatedPost = await postModel.findByIdAndUpdate(postId, {body}, {new: true})
+        res.json(updatedPost).status(200)
     } catch (error) {
         return next(new HttpError(error))
     }
@@ -104,7 +119,18 @@ const updatePost = async(req, res, next) =>{
 
 const deletePost = async(req, res, next) =>{
     try {
-        res.json("Delete Post")
+        const postId = req.params.id;
+         //get post from db
+        const post = await postModel.findById(postId);
+        // check if creator is the same as logged in user
+        if (post?.creator != req.user.id) {
+          return next(
+            new HttpError("You are not authorized to delete this post"),
+            403
+          );
+        }
+       const deletedPost = await postModel.findByIdAndDelete(postId);
+        res.json(deletedPost).status(200);
     } catch (error) {
         return next(new HttpError(error))
     }
