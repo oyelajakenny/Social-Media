@@ -211,7 +211,17 @@ const getUserPosts = async (req, res, next) => {
 
 const createBookmark = async (req, res, next) => {
   try {
-    res.json("Create Bookmark");
+    const {id} = req.params;
+    //get user and check if post already in his bookmarks. if so then remove post, otherwise add post to bookmark
+    const user = await userModels.findById(req.user.id)
+    const postIsBookmarked = user?.bookmarks?.includes(id)
+    if(postIsBookmarked){
+        const userBookmarks = await userModels.findByIdAndUpdate(req.user.id, {$pull: {bookmarks: id}}, {new: true})
+        res.json(userBookmarks)
+    }else{
+        const userBookmarks = await userModels.findByIdAndUpdate(req.user.id,{ $push: { bookmarks: id } },{ new: true });
+        res.json(userBookmarks)
+    }
   } catch (error) {
     return next(new HttpError(error));
   }
