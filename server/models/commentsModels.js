@@ -7,8 +7,8 @@ const commentSchema = new Schema({
       creatorName: {
         type: String,
         required: true,
-        creatorPhoto: { type: String, required: true },
       },
+      creatorPhoto: { type: String, required: true },
     },
   },
   postid: { type: Schema.Types.ObjectId, ref: "Post" },
