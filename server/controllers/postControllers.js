@@ -132,6 +132,7 @@ const deletePost = async(req, res, next) =>{
           );
         }
        const deletedPost = await postModel.findByIdAndDelete(postId);
+       await UserModel.findByIdAndUpdate(post?.creator, {$pull: { posts: post?._id }});
         res.json(deletedPost).status(200);
     } catch (error) {
         return next(new HttpError(error))
@@ -148,8 +149,8 @@ const deletePost = async(req, res, next) =>{
 const getFollowingPosts = async(req, res, next) =>{
     try {
         const user = await userModels.findById(req.user.id)
-        const posts = await postModels.find({creator: {$in: user?.following}})
-        Response.json(posts)
+        const posts = await postModels.find({creator: {$in: user?.following}}) // Get all the post of people we are folowing
+        res.json(posts)
     } catch (error) {
         return next(new HttpError(error))
     }
