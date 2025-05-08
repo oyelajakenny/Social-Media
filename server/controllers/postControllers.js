@@ -197,7 +197,9 @@ const likeDislikePosts = async (req, res, next) => {
 
 const getUserPosts = async (req, res, next) => {
   try {
-    res.json("Get User Posts");
+   const userId = req.params.id;
+   const posts = await userModels.findById(userId).populate({path: "posts", options: {sort: {createdAt: -1}}})
+   res.json(posts)
   } catch (error) {
     return next(new HttpError(error));
   }
