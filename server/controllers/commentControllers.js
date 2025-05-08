@@ -31,7 +31,9 @@ const createComment =async (req, res, next)=>{
 
 const getPostComments =async (req, res, next)=>{
     try {
-        res.json("get post comments")
+       const {postId} = req.params;
+       const comments = await postModel.findById(postId).populate({path:"comments", options:{sort: {createdAt:-1}}})
+       res.json(comments)
     } catch (error) {
         return next(new HttpError)
     }
