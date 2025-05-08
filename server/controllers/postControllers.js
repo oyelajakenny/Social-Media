@@ -5,7 +5,9 @@ const UserModel = require("../models/userModels")
 const {v4: uuid} = require("uuid")
 const cloudinary = require("../utils/cloudinary")
 const fs = require("fs")
-const path = require("path")
+const path = require("path");
+const userModels = require("../models/userModels");
+const postModels = require("../models/postModels");
 
 
 
@@ -143,9 +145,11 @@ const deletePost = async(req, res, next) =>{
 //GET : api/posts/following
 //PROTECTED
 
-const getFollowingPosts = async(requestAnimationFrame, res, next) =>{
+const getFollowingPosts = async(req, res, next) =>{
     try {
-        res.json("Get Following Posts")
+        const user = await userModels.findById(req.user.id)
+        const posts = await postModels.find({creator: {$in: user?.following}})
+        Response.json(posts)
     } catch (error) {
         return next(new HttpError(error))
     }
