@@ -3,6 +3,7 @@ const router = require("express").Router()
 const {registerUser, loginUser, getUser, getUsers, editUser, followUnfollowUser, changeUserAvatar} = require('../controllers/userControllers')
 const {createPost, updatePost, deletePost, getPost, getPosts, getUserPosts, getUserBookmarks, createBookmark, likeDislikePosts, getFollowingPosts} = require("../controllers/postControllers")
 const {createComment, getPostComments, deleteComments} = require("../controllers/commentControllers")
+const {createMessage, getMessages, getConversations}=require("../controllers/messageControllers")
 const authMiddleware = require("../middleware/authMiddleware")
 
 
@@ -34,5 +35,10 @@ router.get("/posts/:id/bookmark", authMiddleware, createBookmark);
 router.post("/comments/:postId", authMiddleware, createComment)
 router.get("/comments/:postId", authMiddleware, getPostComments);
 router.delete("/comments/:commentId", authMiddleware, deleteComments);
+
+//MESSAGE ROUTES
+router.post("/messages/:receiverId", authMiddleware, createMessage)
+router.get("/message/:receiverid", authMiddleware, getMessages)
+router.get("/conversations", authMiddleware, getConversations)
 
 module.exports = router;
