@@ -28,12 +28,18 @@ const createMessage = async(req, res, next)=>{
 
 
 //========================GET MESSAGE
-//POST : api/messages/:receiverId
+//GET : api/messages/:receiverId
 //PROTECTED
 
 const getMessages = async(req, res, next)=>{
     try {
-        res.json("Get Messages")
+        const {receiverId} = req.params;
+        const conversation = await conversationModel.findOne({participants: {$all:[req.user.id, receiverId]}})
+        if(!conversation){
+            return next(new HttpError("You have no conversation with this person", 404))
+        }
+        const messages = await messageModel.find({conversationId: conversation._id}).sort({createdAt: 1})
+        res.json(messages)
     } catch (error) {
         return next(new HttpError(error))
     }
@@ -42,12 +48,17 @@ const getMessages = async(req, res, next)=>{
 
 
 //========================GET CONVERSATIONS
-//POST : api/conversations
+//GET : api/conversations
 //PROTECTED
 
 const getConversations = async(req, res, next)=>{
     try {
-        res.json("Get Conversations")
+        let conversations = await conversationModel.find({participants: req.user.id}).populate({path: "participants", select: "fullName profilePhoto"}).sort({createdAt: -1});
+        //remove logged in user from the conversation array
+        conversations.forEach((conversation)=>{
+            conversation.participants=conversation.participants.filter((participant)=>participant._id.toString() !== req.user.id.toString());
+        });
+        res.json(conversations)
     } catch (error) {
         return next(new HttpError(error))
     }
