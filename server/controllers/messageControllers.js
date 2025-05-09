@@ -1,6 +1,7 @@
 const HttpError = require("../models/errorModels")
 const conversationModel = require("../models/conversationModel")
-const messageModel = require("../models/messageModel")
+const messageModel = require("../models/messageModel");
+const { getReceiverSocketId, io } = require("../socket/socket");
 
 
 //========================CREATE MESSAGE
@@ -20,6 +21,10 @@ const createMessage = async(req, res, next)=>{
         //create a new message
         const newMessage = await messageModel.create({conversationId: conversation._id, senderId: req.user.id, text: messageBody})
         await conversation.updateOne({lastMessage: {text: messageBody, senderId: req.user.id}})
+        const receiverSocketId = getReceiverSocketId(receiverId)
+        if(receiverSocketId){
+io.to(receiverSocketId).emit("newMessage", newMessage)
+        }
         res.json(newMessage)
     } catch (error) {
         return next(new HttpError(error))
