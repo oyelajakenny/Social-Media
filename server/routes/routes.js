@@ -38,7 +38,7 @@ router.delete("/comments/:commentId", authMiddleware, deleteComments);
 
 //MESSAGE ROUTES
 router.post("/messages/:receiverId", authMiddleware, createMessage)
-router.get("/message/:receiverid", authMiddleware, getMessages)
+router.get("/messages/:receiverid", authMiddleware, getMessages)
 router.get("/conversations", authMiddleware, getConversations)
 
 module.exports = router;
