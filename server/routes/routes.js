@@ -2,6 +2,7 @@ const router = require("express").Router()
 
 const {registerUser, loginUser, getUser, getUsers, editUser, followUnfollowUser, changeUserAvatar} = require('../controllers/userControllers')
 const {createPost, updatePost, deletePost, getPost, getPosts, getUserPosts, getUserBookmarks, createBookmark, likeDislikePosts, getFollowingPosts} = require("../controllers/postControllers")
+const {createComment, getPostComments, deleteComments} = require("../controllers/commentControllers")
 const authMiddleware = require("../middleware/authMiddleware")
 
 
@@ -18,6 +19,7 @@ router.get("/users/:id/posts", authMiddleware, getUserPosts);
 
 
 
+
 //POST ROUTES
 router.post("/posts", authMiddleware, createPost);
 router.get("/posts/following", authMiddleware, getFollowingPosts);
@@ -28,6 +30,9 @@ router.delete("/posts/:id", authMiddleware, deletePost);
 router.get("/posts/:id/like", authMiddleware, likeDislikePosts);
 router.get("/posts/:id/bookmark", authMiddleware, createBookmark);
 
-
+//POST ROUTES
+router.post("/comments/:postId", authMiddleware, createComment)
+router.get("/comments/:postId", authMiddleware, getPostComments);
+router.delete("/comments/:commentId", authMiddleware, deleteComments);
 
 module.exports = router;

@@ -45,9 +45,20 @@ const getPostComments =async (req, res, next)=>{
 
 const deleteComments =async (req, res, next)=>{
     try {
-        res.json("Delete comments")
+        const {commentId} = req.params;
+        //get comment from db
+        const comment = await commentModel.findById(commentId);
+        const commentCreator = await UserModel.findById(comment?.creator?.creatorId)
+        //check if the creator is the one performing deletion
+        if(commentCreator?._id != req.user.id ){
+            return next(new HttpError("Unauthorized action", 403))
+        }
+//remove comment id from post comment array
+await postModel.findByIdAndUpdate(comment?.postId, {$pull: {comments: commentId}})
+const deletedComment = await commentModel.findByIdAndDelete(commentId)
+res.json(deletedComment)
     } catch (error) {
-        return next(new HttpError)
+        return next(new HttpError("Comment deleted successfully"))
     }
 }
 
