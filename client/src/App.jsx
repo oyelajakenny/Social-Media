@@ -11,6 +11,8 @@ import Bookmarks from "./pages/Bookmarks"
 import Login from "./pages/Login"
 import Logout from "./pages/Logout"
 import Register from "./pages/Register"
+import {Provider} from "react-redux";
+import {store} from "./store/store";
 
 const router = createBrowserRouter([
   {path: "/", element: <RootLayout/>, errorElement: <ErrorPage />, children: [
@@ -30,8 +32,10 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <RouterProvider router={router}/>
-  )
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App
