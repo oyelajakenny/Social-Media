@@ -1,22 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
+import uiSlice from "./ui-slice";
+import userSlice from "./user-slice";
 
 
-const userSlice =create({
-    name: 'user',
-    initialState:{currentUser: JSON.parse(localStorage.getItem('currentuser')) || null, socket: null, onlineUsers: []},
-    reducers:{
-        changeCurrentUser:(state, action)=>{
-            state.currentUser = action.payload;
-        },
-        setSocket:(state, action)=>{
-            state.socket = action.payload;
-        },
-        setOnlineUsers:(state, action)=>{
-            state.onlineUsers = action.payload;
-        }
-    }
+const store = configureStore({reducer: {ui: uiSlice.reducer, user: userSlice.reducer}})
 
-})
-
-export const userActions = userSlice.actions;
-export default userSlice;
+export default store;
