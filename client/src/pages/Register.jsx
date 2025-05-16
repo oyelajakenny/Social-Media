@@ -55,50 +55,51 @@ const Register = () => {  const [userData, setUserData]=useState({fullName:"", e
               autoFocus
               className="w-full p-2 border border-gray-200 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200 hover:border-gray-300"
             />
-            <div className="flex items-center">
+            <div className="flex items-center relative">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Password"
                 onChange={changeInputHandler}
                 autoFocus
-                className="w-full p-2 border border-gray-200 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200 hover:border-gray-300"
+                className="w-full p-2 border border-gray-200 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200 hover:border-gray-300 pr-10"
               />
               <span
-                className="absolute left-"
+                className="absolute right-3"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}{" "}
               </span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center relative">
               <input
                 type={showPassword ? "text" : "password"}
                 name="confirmPassword"
                 placeholder="Confirm Password"
                 onChange={changeInputHandler}
                 autoFocus
-                className="w-full p-2 border border-gray-200 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200 hover:border-gray-300"
+                className="w-full p-2 border border-gray-200 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200 hover:border-gray-300 pr-10"
               />
               <span
-                className="absolute right-52"
+                className="absolute right-3"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}{" "}
               </span>
             </div>
-            <p>
-              Already have an account?{" "}
-              <Link className="text-blue-600 font-semibold" to={"/login"}>
-                Login
-              </Link>
-            </p>
+
             <button
               className="bg-slate-800 text-white py-3 rounded-md font-semibold text-lg hover:bg-slate-700"
               type="submit"
             >
               Register
             </button>
+            <p className="text-gray-500 text-sm text-center">
+              Already have an account?{" "}
+              <Link className="text-blue-600 font-semibold" to={"/login"}>
+                Login
+              </Link>
+            </p>
           </form>
         </div>
       </div>
