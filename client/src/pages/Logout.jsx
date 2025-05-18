@@ -13,6 +13,14 @@ const Logout = () => {
     localStorage.setItem("currentUser", null);
     navigate("/login")
   },[])
+
+  //Log user out after an hour of inactivity
+  // useEffect(() => {
+  //  setTimeout(()=>{
+  //   navigate("/logout")
+  //  },1000)
+  // }, []);
+
   return (
     <div>Logout</div>
   )
