@@ -31,8 +31,7 @@ const Login = () => {
       );
       console.log("Login response:", response.data); // Add debug log
       if (response?.status === 200) {
-        // Use strict comparison
-        // Login successful
+            // Login successful
         dispatch(userActions.changeCurrentUser(response?.data));
         localStorage.setItem("currentUser", JSON.stringify(response?.data));
        
@@ -54,7 +53,7 @@ const Login = () => {
           className="flex flex-col space-y-3 text-left w-full "
         >
           {error && (
-            <p className="text-red-800 px-5 py-3 bg-red-200 border-l-4 border-l-red-600">
+            <p className="text-red-800 px-5 py-3 bg-red-100 border-l-4 border-l-red-700 rounded-md">
               {error}
             </p>
           )}
