@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const userSlice = create({
+const userSlice = createSlice({
   name: "user",
   initialState: {
-    currentUser: JSON.parse(localStorage.getItem("currentuser")) || null,
+    currentUser: JSON.parse(localStorage.getItem("currentUser")) || null,
     socket: null,
     onlineUsers: [],
   },
