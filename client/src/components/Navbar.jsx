@@ -4,6 +4,7 @@ import { CiSearch } from 'react-icons/ci'
 import { useSelector } from 'react-redux'
 import ProfileImage from "../components/ProfileImage"
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -11,13 +12,23 @@ const Navbar = () => {
   const userId = useSelector((state) => state?.user?.currentUser?.id)
   const token = useSelector((state) => state?.user?.currentUser?.token)
   const profilePhoto = useSelector((state) => state?.user?.currentUser?.profilePhoto)
+  const navigate = useNavigate()
 
   // Check if the user is logged in
   useEffect(()=>{
     if(!token){
       navigate("/login") 
     }
-  })
+  }, [])
+
+  // LOGOUT AFTER AN HOUR
+  useEffect(() => {
+     setTimeout(() => {
+        navigate("/login")
+    }, 3600000) // 1 hour in milliseconds
+
+    
+  }, [])
   return (
     <div className="w-screen">
       <div className=" px-8 flex justify-between items-center p-4 bg-white shadow-md ">
