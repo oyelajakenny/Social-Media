@@ -12,7 +12,7 @@ import Login from "./pages/Login"
 import Logout from "./pages/Logout"
 import Register from "./pages/Register"
 import {Provider} from "react-redux";
-import {store} from "./store/store";
+import store from "./store/store";
 
 const router = createBrowserRouter([
   {path: "/", element: <RootLayout/>, errorElement: <ErrorPage />, children: [
