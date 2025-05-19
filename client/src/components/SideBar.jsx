@@ -10,11 +10,13 @@ import {uiSliceActions} from '../store/ui-slice'
 
 const SideBar = () => {
   return (
-    <div className="flex flex-col gap-8 p-4 bg-blue-400 shadow-md w-[300px] h-screen">
+    <div className="flex flex-col gap-2 p-4 bg-blue-400 shadow-lg w-[300px] h-auto rounded-lg">
       <NavLink
         to="/"
         className={`${({ isActive }) =>
-          isActive ? "active" : ""}, flex items-center gap-2`}
+          isActive
+            ? "bg-slate-400"
+            : " "}, flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`}
       >
         <i>
           <AiOutlineHome />
@@ -24,7 +26,9 @@ const SideBar = () => {
       <NavLink
         to="/"
         className={`${({ isActive }) =>
-          isActive ? "active" : ""}, flex items-center gap-2`}
+          isActive
+            ? "active"
+            : ""}, flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`}
       >
         <i>
           <GoMail />
@@ -34,7 +38,9 @@ const SideBar = () => {
       <NavLink
         to="/"
         className={`${({ isActive }) =>
-          isActive ? "active" : ""}, flex items-center gap-2`}
+          isActive
+            ? "active"
+            : ""}, flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`}
       >
         <i>
           <FaRegBookmark />
@@ -44,7 +50,9 @@ const SideBar = () => {
       <NavLink
         to="/"
         className={`${({ isActive }) =>
-          isActive ? "active" : ""}, flex items-center gap-2`}
+          isActive
+            ? "active"
+            : ""}, flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`}
       >
         <i>
           <PiPaintBrushBold />
