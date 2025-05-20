@@ -1,4 +1,4 @@
-const HttpError = require("../middleware/errorMiddleware");
+const HttpError = require("../models/errorModels");
 const postModel = require("../models/postModels");
 const UserModel = require("../models/userModels");
 
@@ -73,7 +73,10 @@ const createPost = async (req, res, next) => {
 const getPost = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const post = await postModel.findById(id).populate("Creator").populate({path:"comments", options:{sort: {createdAt: -1}}})
+    const post = await postModel
+      .findById(id)
+      .populate("Creator")
+      .populate({ path: "comments", options: { sort: { createdAt: -1 } } });
     res.json(post);
   } catch (error) {
     return next(new HttpError(error));
@@ -196,9 +199,11 @@ const likeDislikePosts = async (req, res, next) => {
 
 const getUserPosts = async (req, res, next) => {
   try {
-   const userId = req.params.id;
-   const posts = await userModels.findById(userId).populate({path: "posts", options: {sort: {createdAt: -1}}})
-   res.json(posts)
+    const userId = req.params.id;
+    const posts = await userModels
+      .findById(userId)
+      .populate({ path: "posts", options: { sort: { createdAt: -1 } } });
+    res.json(posts);
   } catch (error) {
     return next(new HttpError(error));
   }
@@ -210,16 +215,24 @@ const getUserPosts = async (req, res, next) => {
 
 const createBookmark = async (req, res, next) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     //get user and check if post already in his bookmarks. if so then remove post, otherwise add post to bookmark
-    const user = await userModels.findById(req.user.id)
-    const postIsBookmarked = user?.bookmarks?.includes(id)
-    if(postIsBookmarked){
-        const userBookmarks = await userModels.findByIdAndUpdate(req.user.id, {$pull: {bookmarks: id}}, {new: true})
-        res.json(userBookmarks)
-    }else{
-        const userBookmarks = await userModels.findByIdAndUpdate(req.user.id,{ $push: { bookmarks: id } },{ new: true });
-        res.json(userBookmarks)
+    const user = await userModels.findById(req.user.id);
+    const postIsBookmarked = user?.bookmarks?.includes(id);
+    if (postIsBookmarked) {
+      const userBookmarks = await userModels.findByIdAndUpdate(
+        req.user.id,
+        { $pull: { bookmarks: id } },
+        { new: true }
+      );
+      res.json(userBookmarks);
+    } else {
+      const userBookmarks = await userModels.findByIdAndUpdate(
+        req.user.id,
+        { $push: { bookmarks: id } },
+        { new: true }
+      );
+      res.json(userBookmarks);
     }
   } catch (error) {
     return next(new HttpError(error));
@@ -232,8 +245,10 @@ const createBookmark = async (req, res, next) => {
 
 const getUserBookmarks = async (req, res, next) => {
   try {
-    const userBookmarks = await userModels.findById(req.user.id).populate({path: "bookmarks", options:{sort: {createdAt:-1}}})
-    res.json(userBookmarks)
+    const userBookmarks = await userModels
+      .findById(req.user.id)
+      .populate({ path: "bookmarks", options: { sort: { createdAt: -1 } } });
+    res.json(userBookmarks);
   } catch (error) {
     return next(new HttpError(error));
   }
