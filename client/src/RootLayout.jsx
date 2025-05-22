@@ -8,7 +8,7 @@ const RootLayout = () => {
   return (
     <>
       <Navbar />
-      <main className=" px-40 mt-2 bg-slate-100 h-screen">
+      <main className=" px-40 mt-2 bg-slate-100 ">
         <div className=" flex justify-center gap-4">
           <SideBar />
           <Outlet/>
