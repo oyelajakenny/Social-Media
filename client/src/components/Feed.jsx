@@ -26,7 +26,7 @@ const Feed = ({ post }) => {
     getPostCreator();
   }, []);
   return (
-    <article className="border p-5 flex flex-col gap-3 rounded-lg shadow-sm">
+    <article className="border p-2 flex flex-col gap-3 rounded-lg shadow-sm bg-white">
       <header >
         <Link to={`/users/${post?.creator}`} className="flex items-center gap-3">
           <ProfileImage image={creator?.profilePhoto} />
