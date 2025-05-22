@@ -10,7 +10,7 @@ import {uiSliceActions} from '../store/ui-slice'
 
 const SideBar = () => {
   return (
-    <div className="flex flex-col gap-2 p-4 bg-blue-400 shadow-lg w-[300px] h-auto rounded-lg">
+    <div className="flex flex-col gap-2 p-4 bg-blue-400 shadow-lg w-[300px] h-fit rounded-lg">
       <NavLink
         to="/"
         className={`${({ isActive }) =>
