@@ -21,7 +21,7 @@ setImage("")
 
     }
   return (
-    <form encType="multipart/form-data" onSubmit={createPost}>
+    <form encType="multipart/form-data" onSubmit={createPost} className='border p-5  gap-3 rounded-lg shadow-sm bg-white'>
       {error && <p>{error}</p>}
       <div className="flex gap-2  w-[600px]">
         <ProfileImage image={profilePhoto} />
