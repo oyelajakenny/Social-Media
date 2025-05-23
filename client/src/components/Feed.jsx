@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import ProfileImage from "./ProfileImage";
 import axios from "axios";
 import TimeAgo from "react-timeago";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Feed = ({ post }) => {
   const [creator, setCreator] = useState({});
   const token = useSelector((state) => state?.user?.currentUser?.token);
+  const userId = useSelector((state) => state?.user?.currentUser?.id);
   const [showFeedHeaderMenu, setShowFeedHeaderMenu] = useState(false);
-
+  const location = useLocation();
   const getPostCreator = async () => {
     try {
       const response = await axios(
@@ -31,11 +32,11 @@ const Feed = ({ post }) => {
         <Link to={`/users/${post?.creator}`} className="flex items-center gap-3">
           <ProfileImage image={creator?.profilePhoto} />
           <div className="">
-            <h4>{creator?.fullName}</h4>
+            <h4 className="text-xl font-semibold">{creator?.fullName}</h4>
             <small>
-              <TimeAgo date={post?.createdAt} />
+              <TimeAgo date={post?.createdAt} className="text-lg font-normal" />
             </small>
-          </div>
+          </div> 
         </Link>
         {showFeedHeaderMenu &&
           userId == post?.creator &&
@@ -46,6 +47,13 @@ const Feed = ({ post }) => {
             </menu>
           }
       </header>
+      <Link to={`/posts/${post?._id}`}>
+      <p>{post?.body} </p>
+      <div>
+        <img src={post?.image} alt={post?.body} className="w-full h-[500px] object-cover rounded-lg" />
+      </div>
+      
+      </Link>
     </article>
   );
 };
