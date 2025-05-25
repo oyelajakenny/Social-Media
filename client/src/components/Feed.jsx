@@ -4,6 +4,9 @@ import ProfileImage from "./ProfileImage";
 import axios from "axios";
 import TimeAgo from "react-timeago";
 import { Link, useLocation } from "react-router-dom";
+import { FaRegCommentDots } from "react-icons/fa";
+import LikeDislikePost from "./LikeDislikePost";
+import { IoMdShare } from "react-icons/io";
 
 const Feed = ({ post }) => {
   const [creator, setCreator] = useState({});
@@ -28,32 +31,55 @@ const Feed = ({ post }) => {
   }, []);
   return (
     <article className="border p-2 flex flex-col gap-3 rounded-lg shadow-sm bg-white">
-      <header >
-        <Link to={`/users/${post?.creator}`} className="flex items-center gap-3">
+      <header>
+        <Link
+          to={`/users/${post?.creator}`}
+          className="flex items-center gap-3"
+        >
           <ProfileImage image={creator?.profilePhoto} />
           <div className="">
             <h4 className="text-xl font-semibold">{creator?.fullName}</h4>
             <small>
               <TimeAgo date={post?.createdAt} className="text-lg font-normal" />
             </small>
-          </div> 
+          </div>
         </Link>
         {showFeedHeaderMenu &&
           userId == post?.creator &&
-          location.pathname.includes("users") && 
+          location.pathname.includes("users") && (
             <menu>
               <button onClick={showEditPostModal}>Edit</button>
               <button onClick={deletePost}>Delete</button>
             </menu>
-          }
+          )}
       </header>
       <Link to={`/posts/${post?._id}`}>
-      <p>{post?.body} </p>
-      <div>
-        <img src={post?.image} alt={post?.body} className="w-full h-[500px] object-cover rounded-lg" />
-      </div>
-      
+        <p>{post?.body} </p>
+        <div>
+          <img
+            src={post?.image}
+            alt={post?.body}
+            className="w-full h-[500px] object-cover rounded-lg"
+          />
+        </div>
       </Link>
+      <footer>
+        <div className="flex items-center gap-3">
+          <LikeDislikePost post={post} />
+          <button >
+            <Link
+              to={`/posts/${post?._id}`}
+              className="text-blue-400 flex items-center gap-1"
+            >
+              <FaRegCommentDots />
+              <small>{post?.comments?.length}</small>
+            </Link>
+          </button>
+          <button>
+            <IoMdShare />
+          </button>
+        </div>
+      </footer>
     </article>
   );
 };
