@@ -7,6 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FaRegCommentDots } from "react-icons/fa";
 import LikeDislikePost from "./LikeDislikePost";
 import { IoMdShare } from "react-icons/io";
+import TrimText from "../helpers/TrimText";
 
 const Feed = ({ post }) => {
   const [creator, setCreator] = useState({});
@@ -30,7 +31,7 @@ const Feed = ({ post }) => {
     getPostCreator();
   }, []);
   return (
-    <article className="border p-2 flex flex-col gap-3 rounded-lg shadow-sm bg-white">
+    <article className="border p-2 flex flex-col gap-3 rounded-lg shadow-sm bg-white max-w-[700px]">
       <header>
         <Link
           to={`/users/${post?.creator}`}
@@ -54,7 +55,7 @@ const Feed = ({ post }) => {
           )}
       </header>
       <Link to={`/posts/${post?._id}`}>
-        <p>{post?.body} </p>
+        <p className="pb-2 text-gray-600"><TrimText item={post?.body} maxLength={160}/> </p>
         <div>
           <img
             src={post?.image}
