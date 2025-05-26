@@ -34,6 +34,7 @@ const LIkeDislikePost = (props) => {
   return (
     <button onClick={handleLikeDislikePost} className="flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors duration-200">
       {postLiked ? <FcLike/> : <FaRegHeart/>}
+      
       <small>{post?.likes?.length}</small>
     </button>
   );
