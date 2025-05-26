@@ -8,6 +8,7 @@ import { FaRegCommentDots } from "react-icons/fa";
 import LikeDislikePost from "./LikeDislikePost";
 import { IoMdShare } from "react-icons/io";
 import TrimText from "../helpers/TrimText";
+import BookmarkPosts from "./BookmarkPosts";
 
 const Feed = ({ post }) => {
   const [creator, setCreator] = useState({});
@@ -80,6 +81,7 @@ const Feed = ({ post }) => {
             <IoMdShare />
           </button>
         </div>
+        <BookmarkPosts post={post} />
       </footer>
     </article>
   );
