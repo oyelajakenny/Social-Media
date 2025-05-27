@@ -5,6 +5,10 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import TimeAgo from 'react-timeago';
 import LIkeDislikePost from '../components/LikeDislikePost';
+import { IoMdShare } from 'react-icons/io';
+import { FaRegCommentDots } from 'react-icons/fa';
+import BookmarkPosts from '../components/BookmarkPosts';
+
 
 
 
@@ -33,27 +37,41 @@ const SinglePost = () => {
   }, []);
 
   return (
-   <section className="max-w-3xl p-4">
-    <header className='flex items-center gap-3 mb-4'>
-      <ProfileImage image={post?.creator?.profilePhoto} />
-      <div className="flex flex-col gap-1">
-        <h4 className="text-xl font-semibold">{post?.creator?.fullName}</h4>
-        <small>
-          <TimeAgo date={post?.createdAt} className="text-lg font-normal" />
-        </small>  </div>
-    </header>
-    <div>
-      <p>{post?.body}</p>
+    <section className="max-w-3xl p-4">
+      <header className="flex items-center gap-3 mb-4">
+        <ProfileImage image={post?.creator?.profilePhoto} />
+        <div className="flex flex-col gap-1">
+          <h4 className="text-xl font-semibold">{post?.creator?.fullName}</h4>
+          <small>
+            <TimeAgo date={post?.createdAt} className="text-lg font-normal" />
+          </small>{" "}
+        </div>
+      </header>
       <div>
-        <img src={post?.image} alt={post?.body} className="w-full h-auto rounded-lg mt-2" />
+        <p>{post?.body}</p>
+        <div>
+          <img
+            src={post?.image}
+            alt={post?.body}
+            className="w-full h-auto rounded-lg mt-2"
+          />
+        </div>
       </div>
-      
-    </div>
-    <footer className='mt-4'>
-      {post?.likes && <LIkeDislikePost post={post} />}
-    </footer>
+      <footer className="mt-4 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          {post?.likes && <LIkeDislikePost post={post} />}
+          <button>
+            <FaRegCommentDots />
+          </button>
+          <button>
+            <IoMdShare />
+          </button>
+        </div>
+        <BookmarkPosts post={post} />
+      </footer>
+     
     </section>
-  )
+  );
 }
 
 export default SinglePost
