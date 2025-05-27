@@ -47,8 +47,11 @@ const SinglePost = () => {
       <div>
         <img src={post?.image} alt={post?.body} className="w-full h-auto rounded-lg mt-2" />
       </div>
-      <LIkeDislikePost post={post}  />
+      
     </div>
+    <footer className='mt-4'>
+      {post?.likes && <LIkeDislikePost post={post} />}
+    </footer>
     </section>
   )
 }
