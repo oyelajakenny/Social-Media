@@ -69,7 +69,31 @@ const SinglePost = () => {
         </div>
         <BookmarkPosts post={post} />
       </footer>
-     
+      <ul>
+        <form>
+          <div className="flex items-center gap-3 mt-4">
+            <ProfileImage image={post?.creator?.profilePhoto} />
+            <input
+              type="text"
+              placeholder="Add a comment..."
+              className="border p-2 rounded-lg w-full"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+              onClick={(e) => {
+                e.preventDefault();
+                // Add comment submission logic here
+                setComment("");
+              }}
+            >
+              Post
+            </button>
+          </div>
+        </form>
+      </ul>
     </section>
   );
 }
