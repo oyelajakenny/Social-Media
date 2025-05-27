@@ -75,7 +75,7 @@ const getPost = async (req, res, next) => {
     const { id } = req.params;
     const post = await postModel
       .findById(id)
-      .populate("Creator")
+      .populate("creator")
       .populate({ path: "comments", options: { sort: { createdAt: -1 } } });
     res.json(post);
   } catch (error) {
