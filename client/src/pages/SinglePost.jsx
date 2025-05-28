@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import TimeAgo from 'react-timeago';
 import LIkeDislikePost from '../components/LikeDislikePost';
-import { IoMdShare } from 'react-icons/io';
+import { IoMdSend, IoMdShare } from 'react-icons/io';
 import { FaRegCommentDots } from 'react-icons/fa';
 import BookmarkPosts from '../components/BookmarkPosts';
 
@@ -73,13 +73,12 @@ const SinglePost = () => {
         <form>
           <div className="flex items-center gap-3 mt-4">
             <ProfileImage image={post?.creator?.profilePhoto} />
-            <input
+            <textarea
               type="text"
               placeholder="Add a comment..."
               className="border p-2 rounded-lg w-full"
-              value={comment}
               onChange={(e) => setComment(e.target.value)}
-            />
+            >{comment}</textarea>
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-lg"
@@ -89,7 +88,7 @@ const SinglePost = () => {
                 setComment("");
               }}
             >
-              Post
+              <IoMdSend className="text-lg" />
             </button>
           </div>
         </form>
