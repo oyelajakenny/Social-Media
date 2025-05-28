@@ -38,10 +38,11 @@ const SinglePost = () => {
   }, []);
 
 //Function to delete a comment
-const deleteComment = async()=>{
+const deleteComment = async(commentId)=>{
   try {
-    
-  } catch (error) {
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/comments/${id}`, {commentId}, {withCredentials: true, headers:{Authorization: `Bearer ${token}`}})
+setComments(comments.filter(comment => comment?._id !== commentId));
+ } catch (error) {
     console.log(error);
   }
 }
@@ -95,8 +96,8 @@ const createComment=async ()=>{
          
             <ProfileImage image={post?.creator?.profilePhoto} />
             <textarea
-              type="text"
-              placeholder="Add a comment..."
+              value={comment}
+                            placeholder="Add a comment..."
               className="border p-2 rounded-lg w-full"
               onChange={(e) => setComment(e.target.value)}
             >{comment}</textarea>
