@@ -8,6 +8,7 @@ import LIkeDislikePost from '../components/LikeDislikePost';
 import { IoMdSend, IoMdShare } from 'react-icons/io';
 import { FaRegCommentDots } from 'react-icons/fa';
 import BookmarkPosts from '../components/BookmarkPosts';
+import PostComments from '../components/PostComments';
 
 
 
@@ -36,6 +37,14 @@ const SinglePost = () => {
     getPost();
   }, []);
 
+//Function to delete a comment
+const deleteComment = async()=>{
+  try {
+    
+  } catch (error) {
+    console.log(error);
+  }
+}
   return (
     <section className="max-w-3xl p-4">
       <header className="flex items-center gap-3 mb-4">
@@ -70,8 +79,8 @@ const SinglePost = () => {
         <BookmarkPosts post={post} />
       </footer>
       <ul>
-        <form>
-          <div className="flex items-center gap-3 mt-4">
+        <form className="flex items-center gap-3 mt-4">
+         
             <ProfileImage image={post?.creator?.profilePhoto} />
             <textarea
               type="text"
@@ -90,8 +99,11 @@ const SinglePost = () => {
             >
               <IoMdSend className="text-lg" />
             </button>
-          </div>
+          
         </form>
+        {
+          post?.comments?.map(comment => <PostComments key={comment?._id} comment={comment} onDeleteComment={deleteComment}/> )
+        }
       </ul>
     </section>
   );
