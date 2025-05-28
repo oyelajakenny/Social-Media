@@ -36,11 +36,17 @@ const SinglePost = () => {
  
 
 //Function to delete a comment
-const deleteComment = async(commentId)=>{
+const deleteComment = async (commentId) => {
   try {
-    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/comments/${id}`, {commentId}, {withCredentials: true, headers:{Authorization: `Bearer ${token}`}})
-setComments(comments.filter(c => c?._id !== commentId));
- } catch (error) {
+    const response = await axios.delete(
+      `${import.meta.env.VITE_API_URL}/comments/${commentId}`,
+      {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+    setComments(comments.filter(c => c?._id !== commentId));
+  } catch (error) {
     console.log(error);
   }
 }
