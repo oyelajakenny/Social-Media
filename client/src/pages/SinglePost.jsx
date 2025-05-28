@@ -45,6 +45,18 @@ const deleteComment = async()=>{
     console.log(error);
   }
 }
+
+//Function to create comment
+const createComment=async ()=>{
+  try {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/comments/${id}`,{comment}, {withCredentials: true, headers:{Authorization: `Bearer ${token  }`}})
+    const newComment = response?.data;
+    setComments([...comments, newComment]);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
   return (
     <section className="max-w-3xl p-4">
       <header className="flex items-center gap-3 mb-4">
@@ -79,7 +91,7 @@ const deleteComment = async()=>{
         <BookmarkPosts post={post} />
       </footer>
       <ul>
-        <form className="flex items-center gap-3 mt-4">
+        <form onSubmit={createComment} className="flex items-center gap-3 mt-4">
          
             <ProfileImage image={post?.creator?.profilePhoto} />
             <textarea
