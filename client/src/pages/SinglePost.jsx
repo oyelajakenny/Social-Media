@@ -33,15 +33,13 @@ const SinglePost = () => {
     }
   }
 
-  useEffect(() => {
-    getPost();
-  }, []);
+ 
 
 //Function to delete a comment
 const deleteComment = async(commentId)=>{
   try {
     const response = await axios.delete(`${import.meta.env.VITE_API_URL}/comments/${id}`, {commentId}, {withCredentials: true, headers:{Authorization: `Bearer ${token}`}})
-setComments(comments.filter(comment => comment?._id !== commentId));
+setComments(comments.filter(c => c?._id !== commentId));
  } catch (error) {
     console.log(error);
   }
@@ -50,14 +48,16 @@ setComments(comments.filter(comment => comment?._id !== commentId));
 //Function to create comment
 const createComment=async ()=>{
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/comments/${id}`,{comment}, {withCredentials: true, headers:{Authorization: `Bearer ${token  }`}})
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/comments/${id}`,{comment}, {withCredentials: true, headers:{Authorization: `Bearer ${token}`}})
     const newComment = response?.data;
-    setComments([...comments, newComment]);
+    setComments([newComment, ...newComment]);
   } catch (error) {
     console.log(error)
   }
 }
-
+useEffect(() => {
+  getPost();
+}, [deleteComment]);
   return (
     <section className="max-w-3xl p-4">
       <header className="flex items-center gap-3 mb-4">
@@ -92,23 +92,19 @@ const createComment=async ()=>{
         <BookmarkPosts post={post} />
       </footer>
       <ul>
-        <form onSubmit={createComment} className="flex items-center gap-3 mt-4">
+        <form onSubmit={createComment} className="flex items-center gap-3 mt-4 border p-4 rounded-lg bg-white shadow-sm">    
          
             <ProfileImage image={post?.creator?.profilePhoto} />
             <textarea
               value={comment}
                             placeholder="Add a comment..."
-              className="border p-2 rounded-lg w-full"
+              className="border p-2 rounded-lg w-full bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={(e) => setComment(e.target.value)}
             >{comment}</textarea>
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-              onClick={(e) => {
-                e.preventDefault();
-                // Add comment submission logic here
-                setComment("");
-              }}
+            
             >
               <IoMdSend className="text-lg" />
             </button>
