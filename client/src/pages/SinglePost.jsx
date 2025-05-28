@@ -100,7 +100,7 @@ useEffect(() => {
       <ul>
         <form onSubmit={createComment} className="flex items-center gap-3 mt-4 border p-4 rounded-lg bg-white shadow-sm">    
          
-            <ProfileImage image={post?.creator?.profilePhoto} />
+            <ProfileImage image={post?.currentUser?.profilePhoto} />
             <textarea
               value={comment}
                             placeholder="Add a comment..."
