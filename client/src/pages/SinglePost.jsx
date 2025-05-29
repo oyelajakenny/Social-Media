@@ -65,7 +65,7 @@ useEffect(() => {
   getPost();
 }, [deleteComment]);
   return (
-    <section className="max-w-3xl p-4">
+    <section className=" p-4 max-w-[700px] min-w-[700px] bg-white rounded-lg shadow-md">
       <header className="flex items-center gap-3 mb-4">
         <ProfileImage image={post?.creator?.profilePhoto} />
         <div className="flex flex-col gap-1">
@@ -98,27 +98,33 @@ useEffect(() => {
         <BookmarkPosts post={post} />
       </footer>
       <ul>
-        <form onSubmit={createComment} className="flex items-center gap-3 mt-4 border p-4 rounded-lg bg-white shadow-sm">    
-         
-            <ProfileImage image={post?.currentUser?.profilePhoto} />
-            <textarea
-              value={comment}
-                            placeholder="Add a comment..."
-              className="border p-2 rounded-lg w-full bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={(e) => setComment(e.target.value)}
-            >{comment}</textarea>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-            
-            >
-              <IoMdSend className="text-lg" />
-            </button>
-          
+        <form
+          onSubmit={createComment}
+          className="flex items-center gap-3 mt-4 border p-4 rounded-lg bg-white shadow-sm"
+        >
+          <ProfileImage image={post?.currentUser?.profilePhoto} />
+          <textarea
+            value={comment}
+            placeholder="Add a comment..."
+            className="border p-2 rounded-lg w-full bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={(e) => setComment(e.target.value)}
+          >
+            {comment}
+          </textarea>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+          >
+            <IoMdSend className="text-lg" />
+          </button>
         </form>
-        {
-          post?.comments?.map(comment => <PostComments key={comment?._id} comment={comment} onDeleteComment={deleteComment}/> )
-        }
+        {post?.comments?.map((comment) => (
+          <PostComments
+            key={comment?._id}
+            comment={comment}
+            onDeleteComment={deleteComment}
+          />
+        ))}
       </ul>
     </section>
   );
