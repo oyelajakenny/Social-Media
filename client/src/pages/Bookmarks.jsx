@@ -2,30 +2,26 @@ import React, { use } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Feed from "../components/Feed";
+import { useEffect, useState } from "react";
 
 const Bookmarks = () => {
-  const [bookmarks, setBookmarks] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const token = useSelector((state) => state?.user?.currentUser?.token);
 
   //GET Bookmarks of Logined User
 
   const getBookmarks = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/boookmarks`,
-        {
-          withCredentials: true,
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setBookmarks(response?.data.bookmarks);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/users/bookmarks`,{withCredentials: true, headers: { Authorization: `Bearer ${token}` }});
+      setBookmarks(response?.data?.bookmarks);
     } catch (error) {
       console.log(error);
     }
     setIsLoading(false);
   };
-  React.useEffect(() => {
+
+  useEffect(() => {
     getBookmarks();
   }, []);
 
