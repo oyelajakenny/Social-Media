@@ -11,10 +11,9 @@ const BookmarkPosts = ({ post }) => {
     user?.bookmarks?.includes(post?._id)
   );
   const token = useSelector((state) => state?.user?.currentUser?.token);
-  const userId = useSelector((state) => state?.user?.currentUser?._id);
+  const userId = useSelector((state) => state?.user?.currentUser?.id);
 
   const getUser = async () => {
-    if (!userId) return; // Prevent API call if userId is undefined
     try {
       const response = await axios(
         `${import.meta.env.VITE_API_URL}/users/${userId}`,
@@ -29,8 +28,8 @@ const BookmarkPosts = ({ post }) => {
     }
   };
   useEffect(() => {
-    if (userId) getUser();
-  }, [userId, postBookmarked]);
+     getUser();
+  }, [user, postBookmarked]);
 
   //Function to create bookmark
   const createBookmark = async () => {
