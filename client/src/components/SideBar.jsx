@@ -24,7 +24,7 @@ const SideBar = () => {
         <p>Home</p>
       </NavLink>
       <NavLink
-        to="/"
+        to="/messages"
         className={`${({ isActive }) =>
           isActive
             ? "active"
@@ -36,7 +36,7 @@ const SideBar = () => {
         <p>Messages</p>
       </NavLink>
       <NavLink
-        to="/"
+        to="/bookmarks"
         className={`${({ isActive }) =>
           isActive
             ? "active"
