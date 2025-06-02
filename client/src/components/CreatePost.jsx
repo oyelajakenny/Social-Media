@@ -6,7 +6,7 @@ import { SlPicture } from 'react-icons/sl'
 const CreatePost = ({onCreatePost, error}) => {
 const [body, setBody] = React.useState("")
 const [image, setImage] = React.useState("")
-const profilePhoto = useSelector((state)=>state?.user?.currentUser?.profilePhoto)
+const profilePhoto = useSelector(state=>state?.user?.currentUser?.profilePhoto)
 
 //Function to handle the form submission
 // and create a new post
