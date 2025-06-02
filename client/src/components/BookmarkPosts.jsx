@@ -23,6 +23,11 @@ const BookmarkPosts = ({ post }) => {
         }
       );
       setUser(response?.data);
+      if (response?.data?.bookmarks?.includes(post?._id)) {
+        setPostBookmarked(true);
+      } else {
+        setPostBookmarked(false);
+      }
     } catch (error) {
       console.log(error);
     }
