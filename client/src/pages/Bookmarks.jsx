@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Feed from "../components/Feed";
 import { useEffect, useState } from "react";
+import HeaderInfo from "../components/HeaderInfo";
 
 const Bookmarks = () => {
   const [bookmarks, setBookmarks] = useState([]);
@@ -27,6 +28,7 @@ const Bookmarks = () => {
 
   return (
     <section>
+      <HeaderInfo text="My Bookmarks"/>
       {bookmarks?.length < 1 ? (
         <p>No posts bookmarked</p>
       ) : (
