@@ -13,10 +13,11 @@ const SideBar = () => {
     <div className="flex flex-col gap-2 p-4 bg-blue-400 shadow-lg w-[300px] h-fit rounded-lg">
       <NavLink
         to="/"
-        className={`${({ isActive }) =>
-          isActive
-            ? "bg-slate-400"
-            : " "}, flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`}
+        className={({ isActive }) =>
+          `${
+            isActive ? "bg-slate-400" : ""
+          } flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`
+        }
       >
         <i>
           <AiOutlineHome />
@@ -25,10 +26,11 @@ const SideBar = () => {
       </NavLink>
       <NavLink
         to="/messages"
-        className={`${({ isActive }) =>
-          isActive
-            ? "active"
-            : ""}, flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`}
+        className={({ isActive }) =>
+          `${
+            isActive ? "bg-slate-400" : ""
+          } flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`
+        }
       >
         <i>
           <GoMail />
@@ -37,10 +39,11 @@ const SideBar = () => {
       </NavLink>
       <NavLink
         to="/bookmarks"
-        className={`${({ isActive }) =>
-          isActive
-            ? "active"
-            : ""}, flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`}
+        className={({ isActive }) =>
+          `${
+            isActive ? "bg-slate-400" : ""
+          } flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`
+        }
       >
         <i>
           <FaRegBookmark />
@@ -48,11 +51,12 @@ const SideBar = () => {
         <p>Bookmarks</p>
       </NavLink>
       <NavLink
-        to="/"
-        className={`${({ isActive }) =>
-          isActive
-            ? "active"
-            : ""}, flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`}
+        to="/themes"
+        className={({ isActive }) =>
+          `${
+            isActive ? "bg-slate-400" : ""
+          } flex items-center gap-2 hover:bg-blue-300 rounded-xl py-4 px-2 text-white text-xl`
+        }
       >
         <i>
           <PiPaintBrushBold />
