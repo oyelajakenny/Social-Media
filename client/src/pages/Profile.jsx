@@ -1,9 +1,11 @@
 import React from 'react'
+import UserProfile from '../components/UserProfile'
 
 const Profile = () => {
   return (
-    <div>Profile</div>
-  )
+<section>
+  <UserProfile/>
+</section>  )
 }
 
 export default Profile
