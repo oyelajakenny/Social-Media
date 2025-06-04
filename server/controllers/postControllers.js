@@ -43,7 +43,7 @@ const createPost = async (req, res, next) => {
           //store image on cloudinary
           const result = await cloudinary.uploader.upload(
             path.join(__dirname, "..", "uploads", fileName),
-            { resourse_type: "image" }
+            { resource_type: "image" }
           );
           if (!result.secure_url) {
             return next(new HttpError("Could not upload the image"), 400);
