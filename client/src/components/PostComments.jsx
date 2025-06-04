@@ -14,7 +14,7 @@ const PostComments = ({comment, onDeleteComment}) => {
     <li className="flex items-start justify-between gap-4 py-2 px-3 border-b border-gray-200 bg-white rounded-lg shadow-sm my-2">
         <div className="flex items-start gap-4">
             <div>
-                <img src={comment?.creator?.creatorPhtoto} alt="profile" className="w-10 h-10 rounded-full" />
+                <img src={comment?.creator?.creatorPhoto} alt="profile" className="w-10 h-10 rounded-full" />
             </div>
             <div>
                 <div className="flex items-center gap-2 mb-1">
