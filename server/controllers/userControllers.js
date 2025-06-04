@@ -86,7 +86,7 @@ const loginUser = async (req, res, next) => {
     const token = await jwt.sign({ id: user?._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.status(200).json({ token, id: user?._id });
+    res.status(200).json({ token, id: user?._id, email: user?.email, fullName: user?.fullName, profilePhoto: user?.profilePhoto });
   } catch (error) {
     res.status(500).json({ message: error.message || "An error occurred" });
   }
@@ -99,7 +99,7 @@ const loginUser = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const user = await userModels.findById(id);
+    const user = await userModels.findById(id).select("-password");
     if (!user) {
       return next(new HttpError("User not found", 422));
     }
@@ -116,6 +116,7 @@ const getUser = async (req, res, next) => {
 const getUsers = async (req, res, next) => {
   try {
     //    const users = await userModels.find().limit(10).sort({createdAt})
+
     const users = await userModels.find();
     res.json(users);
   } catch (error) {
